@@ -733,7 +733,7 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
         console.log(max);
         var sizeScale = d3.scale.linear().domain([min, max]).range([4,9]);
 
-        var layer = d3.select(this.getPanes().overlayLayer).append("div")
+        var layer = d3.select(this.getPanes().overlayMouseTarget).append("div")
             .attr("class", "stations");
         console.log(data.cells);
         // Draw each marker as a separate SVG element.
@@ -755,7 +755,7 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
                 })
                 .attr("cx", padding)
                 .attr("cy", padding)
-                .on('click', function(d,i){  changeSelection(d);  });
+                .on('click', function(d,i){  console.log("working"); return i;  });
 
 
             function transform(d) {
