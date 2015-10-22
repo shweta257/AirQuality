@@ -712,9 +712,11 @@ d3.json("data/pac12_2013.json", function (error, loadedData) {
 */
 // Create the Google Map…
 var map = new google.maps.Map(d3.select("#map").node(), {
-    zoom: 8,
+    zoom: 7,
     center: new google.maps.LatLng(39.3700, -111.5800),
-    mapTypeId: google.maps.MapTypeId.TERRAIN
+    // mapTypeId: google.maps.MapTypeId.ROADMAP
+    //mapTypeId: google.maps.MapTypeId.SATELLITE
+    mapTypeId: google.maps.MapTypeId.HYBRID
 });
 
 // Load the station data. When the data comes back, create an overlay.
