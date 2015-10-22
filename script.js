@@ -1,6 +1,5 @@
 /*globals d3, topojson, document*/
 // These are helpers for those using JSHint
-//Discussed with Sunny Hardasani and Murali Teja
 var data,
     locationData,
     teamSchedules,
@@ -712,8 +711,8 @@ d3.json("data/pac12_2013.json", function (error, loadedData) {
 */
 // Create the Google Map…
 var map = new google.maps.Map(d3.select("#map").node(), {
-    zoom: 7,
-    center: new google.maps.LatLng(39.3700, -111.5800),
+    zoom: 8,
+    center: new google.maps.LatLng(40.7767833, -112.06057),
      mapTypeId: google.maps.MapTypeId.ROADMAP
     //mapTypeId: google.maps.MapTypeId.SATELLITE
     //mapTypeId: google.maps.MapTypeId.HYBRID
@@ -730,7 +729,7 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
         var min = d3.min(dataneeded.map(function(d){return d.average_mean;}));
         var max = d3.max(dataneeded.map(function(d){return d.average_mean;}));
         var diff = max -min;
-        var sizeScale = d3.scale.linear().domain([min, max]).range([4,9]);
+        var sizeScale = d3.scale.linear().domain([min, max]).range([0.5,12]);
         var color = d3.scale.linear()
             .domain([min, min + diff/9,min + 2*diff/9, min + 3*diff/9, min +
                 4*diff/9, min + 5*diff/9,min + 6*diff/9,min + 7*diff/9,min + 8*diff/9, max])
@@ -758,7 +757,12 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
                 .attr("cx", padding)
                 .attr("cy", padding)
                 .attr("fill",function(d,i){ return color(d.average_mean);})
-                .on('click', function(d,i){  console.log("working"); return i;  });
+                .on('click', function(d,i){  console.log("working"); return i;  })
+                .call(d3.helper.tooltip(
+        function(d, i){
+          return "<b> "+d.city + "</b><br/>Value: "+d.average_mean.toFixed(3);
+        }
+        ));
 
 
             function transform(d) {

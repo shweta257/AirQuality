@@ -20,14 +20,13 @@
         .stations svg {
             width: 60px;
             height: 20px;
-            padding-right: 100px;
+            padding: 2px;
             font: 10px sans-serif;
         }
 
         .stations circle {
 
-
-            stroke-width: 1.5px;
+            stroke-width: 0.5px;
         }
 
         #states {
@@ -45,11 +44,20 @@
             fill: rgb(123, 123, 123);
         }
         
-        
+       .tooltip{ background-color:rgba(68,136,187,0.5);;
+          margin: 10px;
+          height: 50px;
+          width: 150px;
+          padding-left: 10px; 
+          padding-top: 10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+        } 
 
         .node {
-        stroke: #fff;
-        stroke-width: 1.5px;
+        stroke: #000;
+        stroke-width: 0.5px;
     	}
 
 		.link {
@@ -76,15 +84,6 @@
         h2 {
             margin: 10px;
         }
-        
-        div {
-            display: inline-block;
-        }
-        
-        div,
-        span {
-            padding: 10px;
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
@@ -96,9 +95,9 @@
 <body>
     <body>
         <h3>Utah Air Quality</h3>
-       <div id ="map" style="position:absolute;top:50px;align:center;height:400px;width:100%">
+       <div id ="map" style="position:absolute;margin:10px;top:50px;align:center;height:400px;width:50%">
         </div> 
-        <div>
+        <div style="position:absolute;top:410px;">
             <h2>Pac-12 Game Connections</h2>
             <svg width="427" height="500" id="graph">
                 <g id="links"></g>
@@ -117,6 +116,7 @@
         <br>
 
 
+        <script type="application/javascript" src="tooltip.js"></script>
         <script type="application/javascript" src="script.js"></script>
     </body>
 </html>
