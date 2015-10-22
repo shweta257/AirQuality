@@ -729,10 +729,12 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
         var dataneeded = data.cells;
         var min = d3.min(dataneeded.map(function(d){return d.average_mean;}));
         var max = d3.max(dataneeded.map(function(d){return d.average_mean;}));
-        console.log(min);
-        console.log(max);
+        var diff = max -min;
         var sizeScale = d3.scale.linear().domain([min, max]).range([4,9]);
-
+        var color = d3.scale.linear()
+            .domain([min, min + diff/9,min + 2*diff/9, min + 3*diff/9, min +
+                4*diff/9, min + 5*diff/9,min + 6*diff/9,min + 7*diff/9,min + 8*diff/9, max])
+                .range(colorbrewer.BuPu[9]);
         var layer = d3.select(this.getPanes().overlayMouseTarget).append("div")
             .attr("class", "stations");
         console.log(data.cells);
@@ -755,6 +757,7 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
                 })
                 .attr("cx", padding)
                 .attr("cy", padding)
+                .attr("fill",function(d,i){ return color(d.average_mean);})
                 .on('click', function(d,i){  console.log("working"); return i;  });
 
 
