@@ -714,27 +714,35 @@ d3.json("data/pac12_2013.json", function (error, loadedData) {
 var map = new google.maps.Map(d3.select("#map").node(), {
     zoom: 7,
     center: new google.maps.LatLng(39.3700, -111.5800),
-    // mapTypeId: google.maps.MapTypeId.ROADMAP
+     mapTypeId: google.maps.MapTypeId.ROADMAP
     //mapTypeId: google.maps.MapTypeId.SATELLITE
-    mapTypeId: google.maps.MapTypeId.HYBRID
+    //mapTypeId: google.maps.MapTypeId.HYBRID
 });
-
+///cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone
+d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone", function(error, data) {
 // Load the station data. When the data comes back, create an overlay.
-d3.json("data/station.json", function(data) {
+//d3.json("data/aggregate.json", function(data) {
     var overlay = new google.maps.OverlayView();
 
     // Add the container when the overlay  is added to the map.
     overlay.onAdd = function() {
+        var dataneeded = data.cells;
+        var min = d3.min(dataneeded.map(function(d){return d.average_mean;}));
+        var max = d3.max(dataneeded.map(function(d){return d.average_mean;}));
+        console.log(min);
+        console.log(max);
+        var sizeScale = d3.scale.linear().domain([min, max]).range([4,9]);
+
         var layer = d3.select(this.getPanes().overlayLayer).append("div")
             .attr("class", "stations");
-
+        console.log(data.cells);
         // Draw each marker as a separate SVG element.
         // We could use a single SVG, but what size would it have?
         overlay.draw = function() {
             var projection = this.getProjection(),
                 padding = 10;
             var marker = layer.selectAll("svg")
-                .data(d3.entries(data))
+                .data(data.cells)
                 .each(transform) // update existing markers
                 .enter().append("svg:svg")
                 .each(transform)
@@ -742,19 +750,16 @@ d3.json("data/station.json", function(data) {
 
             // Add a circle.
             marker.append("svg:circle")
-                .attr("r", 4.5)
+                .attr("r", function(d,i){
+                    return sizeScale(d.average_mean);
+                })
                 .attr("cx", padding)
-                .attr("cy", padding);
+                .attr("cy", padding)
+                .on('click', function(d,i){  changeSelection(d);  });
 
-            // Add a label.
-            marker.append("svg:text")
-                .attr("x", padding + 7)
-                .attr("y", padding)
-                .attr("dy", ".31em")
-                .text(function(d) { return d.key; });
 
             function transform(d) {
-                d = new google.maps.LatLng(d.value[1], d.value[0]);
+                d = new google.maps.LatLng(d.avg_lat, d.avg_long);
                 d = projection.fromLatLngToDivPixel(d);
                 return d3.select(this)
                     .style("left", (d.x - padding) + "px")
