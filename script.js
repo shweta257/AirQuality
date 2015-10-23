@@ -1,6 +1,307 @@
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+function o3Aqi(avg_mean){
+	
+	if(0.0<avg_mean && avg_mean <= 0.065){
+		Ihi =50;
+		Ilo=0;
+		BPhi = 0.064;
+		BPlo = 0.0;
+			
+	}else if(0.065<avg_mean && avg_mean<=0.085){
+		Ihi =100;
+		Ilo=51;
+		BPhi = 0.084;
+		BPlo = 0.065;
+		
+	}else if(0.085<avg_mean && avg_mean<=0.105){
+		Ihi =150;
+		Ilo=101;
+		BPhi = 0.104;
+		BPlo = 0.085;
+		
+	}else if(0.105<avg_mean && avg_mean<=0.125){
+		Ihi = 200;
+		Ilo=151;
+		BPhi = 0.124;
+		BPlo = 0.105;
+		
+	}else if(0.125<avg_mean && avg_mean<=0.375){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 300;
+		BPlo = 201;
+		
+	}else{
+		return getRandomInt(1, 500);
+	}
+	
+	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
+}
+
+function pm10Aqi(avg_mean){
+
+	if(0<avg_mean && avg_mean<=55){
+		Ihi =500;
+		Ilo=0;
+		BPhi = 54;
+		BPlo = 0;
+			
+	}else if(55<avg_mean && avg_mean<=155){
+		Ihi =100;
+		Ilo=51;
+		BPhi = 154;
+		BPlo = 55;
+		
+	}else if(155<avg_mean && avg_mean<=255){
+		Ihi =150;
+		Ilo=101;
+		BPhi = 254;
+		BPlo = 155;
+		
+	}else if(255<avg_mean && avg_mean<=355){
+		Ihi = 200;
+		Ilo=151;
+		BPhi = 354;
+		BPlo = 255;
+		
+	}else if(355<avg_mean && avg_mean<=425){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 424;
+		BPlo = 355;
+		
+	}else if(425<avg_mean && avg_mean<=505){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 504;
+		BPlo = 425;
+	
+	}else if(505<avg_mean && avg_mean<=605){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 604;
+		BPlo = 505;
+	}else{
+		return getRandomInt(1, 500);
+	}
+	
+	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
+}
+
+function pm25Aqi(avg_mean){
+	if(0.0<avg_mean && avg_mean<=15.5){
+		Ihi =50;
+		Ilo=0;
+		BPhi = 15.4;
+		BPlo = 0.0;
+			
+	}else if(15.5<avg_mean && avg_mean<=40.5){
+		Ihi =100;
+		Ilo=51;
+		BPhi = 40.4;
+		BPlo = 15.5;
+		
+	}else if(40.5<avg_mean && avg_mean<=65.5){
+		Ihi =150;
+		Ilo=101;
+		BPhi = 65.4;
+		BPlo = 40.5;
+		
+	}else if(65.5<avg_mean && avg_mean<=150.5){
+		Ihi = 200;
+		Ilo=151;
+		BPhi = 150.4;
+		BPlo = 65.5;
+		
+	}else if(150.5<avg_mean && avg_mean<=250.5){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 250.4;
+		BPlo = 150.5;
+		
+	}else if(250.5<avg_mean && avg_mean<=350.5){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 350.4;
+		BPlo = 250.5;
+		
+	}else if(350.5<avg_mean && avg_mean<=500.5){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 350.5;
+		BPlo = 500.4;
+	}else{
+		return getRandomInt(1, 500);
+	}	
+	
+	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
+}
+
+function coAqi(avg_mean){
+	if(0.0<avg_mean && avg_mean<=4.5){
+		Ihi =50;
+		Ilo=0;
+		BPhi = 4.4;
+		BPlo = 0.0;
+			
+	}else if(4.5<avg_mean && avg_mean<=9.5){
+		Ihi =100;
+		Ilo=51;
+		BPhi = 9.4;
+		BPlo = 4.5;
+		
+	}else if(9.5<avg_mean && avg_mean<=12.5){
+		Ihi =150;
+		Ilo=101;
+		BPhi = 12.4;
+		BPlo = 9.5;
+		
+	}else if(12.5<avg_mean && avg_mean<=15.5){
+		Ihi = 200;
+		Ilo=151;
+		BPhi = 15.4;
+		BPlo = 12.5;
+		
+	}else if(15.5<avg_mean && avg_mean<=30.5){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 30.4;
+		BPlo = 15.5;
+		
+	}else if(30.5<avg_mean && avg_mean<=40.5){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 40.4;
+		BPlo = 30.5;
+	}else if(40.5<avg_mean && avg_mean<=50.5){
+		Ihi =0.374;
+		Ilo=0.125;
+		BPhi = 50.4;
+		BPlo = 40.5;
+		
+	}else{
+		return getRandomInt(1, 500);
+	}
+	
+	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
+}
+function so2Aqi(avg_mean){
+
+	if(0.0<avg_mean && avg_mean<=0.035){
+		Ihi =50;
+		Ilo=0;
+		BPhi = 0.034;
+		BPlo = 0.0;
+			
+	}else if(0.035<avg_mean && avg_mean<=0.145){
+		Ihi =100;
+		Ilo=51;
+		BPhi = 0.144;
+		BPlo = 0.035;
+		
+	}else if(0.145<avg_mean && avg_mean<=0.225){
+		Ihi =150;
+		Ilo=101;
+		BPhi = 0.224;
+		BPlo = 0.145;
+		
+	}else if(0.225<avg_mean && avg_mean<=0.305){
+		Ihi = 200;
+		Ilo=151;
+		BPhi = 0.304;
+		BPlo = 0.225;
+		
+	}else if(0.305<avg_mean && avg_mean<=0.605){
+		Ihi =300;
+		Ilo=201;
+		BPhi = 0.604;
+		BPlo = 0.305;
+		
+	}else if(0.605<avg_mean && avg_mean<=0.805){
+		Ihi =400;
+		Ilo=301;
+		BPhi = 0.804;
+		BPlo = 0.605;
+	}else if(0.805<avg_mean && avg_mean<=0.1005){
+		Ihi =500;
+		Ilo=401;
+		BPhi = 0.1004;
+		BPlo = 0.805;
+		
+	}else{
+		return getRandomInt(1, 500);
+	}
+	
+	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
+}
+function no2Aqi(avg_mean){
+
+	if(0.65<avg_mean && avg_mean<=0.125){
+		Ihi =300;
+		Ilo=201;
+		BPhi = 0.124;
+		BPlo = 0.65;
+			
+	}else if(1.25<avg_mean && avg_mean<=1.65){
+		Ihi =400;
+		Ilo=301;
+		BPhi = 1.64;
+		BPlo = 0.65;
+		
+	}else if(1.65<avg_mean && avg_mean<=2.05){
+		Ihi =500;
+		Ilo=401;
+		BPhi = 2.04;
+		BPlo = 1.65;
+		
+	}else{
+		return getRandomInt(1, 500);
+	}
+	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
+}
+
+
+function calcAqi(avg_mean, parameter){
+	if(parameter === ""){
+		return pm10Aqi(avg_mean);
+		o3AqI = o3Aqi(avg_mean);
+		so2AqI = so2Aqi(avg_mean);
+		no2AqI=no2Aqi(avg_mean);
+		coAqI = coAqi(avg_mean);
+		pm25AqI = pm25Aqi(avg_mean);
+		pm10AqI = pm10Aqi(avg_mean);
+		aqI = Math.max(pm25AqI,pm10AqI,coAqI,no2AqI,so2AqI,o3AqI);
+	}else if(parameter === "Ozone"){
+		aqI = o3Aqi(avg_mean);
+	}else if(parameter.indexOf("PM2.5") > -1){
+		aqI = pm25Aqi(avg_mean);
+	}else if(parameter.indexOf("PM10") > -1){
+		aqI = pm10Aqi(avg_mean);
+	}else if(parameter === "Sulfur dioxide"){
+		aqI = so2Aqi(avg_mean);
+	}else if(parameter === "Carbon monoxide"){
+		aqi = coAqi(avg_mean);
+	}else if(parameter.indexOf("Nitrogen dioxide") > -1){
+		aqI = no2Aqi(avg_mean);
+	}
+	return aqI;
+	
+}
+
+
+
+
+
+
+
+
+
 /*globals d3, topojson, document*/
 // These are helpers for those using JSHint
-//Discussed with Sunny Hardasani and Murali Teja
 var data,
     locationData,
     teamSchedules,
@@ -62,47 +363,31 @@ function changeSelection(d) {
     // a Team, or a Location.
 	
     // ******* TODO: PART V *******
-   if(d.data_type == "Game")
-	{
-		selectedSeries = [d];
-		updateBarChart();
-		updateForceDirectedGraph();
-		updateMap();
-	}
-	else if(d.data_type == "Team")
-	{
-		selectedSeries = teamSchedules[d.name];
-		updateBarChart();
-		updateForceDirectedGraph();
-		updateMap();
-		
-	}
-	else if (d.data_type == "Location") 
-	{
-    // Update everything that is data-dependent
-    // Note that updateBarChart() needs to come first
-    // so that the color scale is set
-    	selectedSeries = d["games"];
-		updateBarChart();
-		updateForceDirectedGraph();
-		updateMap();
-	}
-	else if (d.data_type == null) 
-	{
-	}
+   updateGoogleMap("", d.city);
 }
 /* DRAWING FUNCTIONS */
 
-function updateBarChart() {
+function updateBarChart(parameter, city) {
 	 //Code inspired from the lecture site	 
 	 //http://dataviscourse.net/2015/lectures/lecture-advanced-d3/
+    var url = "http://cube.geekological.com/cube/airquality/aggregate?drilldown=year";
+    if(parameter != "" || city != "")
+    url += "&cut=";
+    url += parameter != "" ? "parameter:" + encodeURIComponent(parameter) : "";
+    url += (parameter != "" && city != "") ? ("|city:" + encodeURIComponent(city)) :
+            ((city != "") ? ("city:" + encodeURIComponent(city)) : (""));
+    console.log(url);
+    d3.json( url, function(error, selectedSeries) {
+
     var svgBounds = document.getElementById("barChart").getBoundingClientRect(),
         xAxisSize = 100,
         yAxisSize = 60;
+
+    selectedSeries = selectedSeries.cells;
     var margin = {top: 40, right: 30, bottom: 40, left: 40};
     var width = svgBounds.width - margin.left - margin.right;
     var height = svgBounds.height - margin.top - margin.bottom;
-    var max =90000;
+    var max =500;
     var textWidth = 60;
     // ******* TODO: PART I *******
 
@@ -112,7 +397,7 @@ function updateBarChart() {
         .rangeRoundBands([0, width], 0.05);
 
     xScale.domain(selectedSeries.map(function (d) {
-        return d["Date"];
+        return d["year"];
     }));
 
     var yScale = d3.scale.linear()
@@ -130,12 +415,11 @@ function updateBarChart() {
         .call(xAxis);
 
 
-    var min = d3.min(selectedSeries, function(d) { return d.attendance;});
 
  
-	    colorScale = d3.scale.linear()
-        .domain([10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000])
-        .range(colorbrewer.Greens[9]);
+    colorScale = d3.scale.linear()
+        .domain([0, 100, 200, 300, 400, 500])
+        .range(colorbrewer.Greens[5]);
 
 
     var yAxis = d3.svg.axis();
@@ -161,11 +445,11 @@ function updateBarChart() {
     scales
         .enter()
         .append("text").text(function (d) {
-            console.log("datetime", d.Date);
-            return d.Date;
+            console.log("datetime", d.year);
+            return d.year;
         })
         .attr("x", function(d,i){
-            return xScale(d.Date) + (xScale.rangeBand())/2 ;
+            return xScale(d.year) + (xScale.rangeBand())/2 ;
         })
         // dy is a shift along the y axis
         .attr("dy", height + 5)
@@ -174,16 +458,16 @@ function updateBarChart() {
         // center it
         .attr("alignment-baseline", "middle")
         .attr("transform", function(d ,i){
-            return "rotate(-90," + (xScale(d.Date) + xScale.rangeBand()/2) + ",425)" ;
+            return "rotate(-90," + (xScale(d.year) + xScale.rangeBand()/2) + ",425)" ;
         });
 
     scales
         .text(function (d) {
-            console.log("datetime", d.Date);
-            return d.Date;
+            console.log("datetime", d.year);
+            return d.year;
         })
         .attr("x", function(d,i){
-            return xScale(d.Date) + (xScale.rangeBand())/2 ;
+            return xScale(d.year) + (xScale.rangeBand())/2 ;
         })
         // dy is a shift along the y axis
         .attr("dy", height + 5)
@@ -192,7 +476,7 @@ function updateBarChart() {
         // center it
         .attr("alignment-baseline", "middle")
         .attr("transform", function(d ,i){
-            return "rotate(-90," + (xScale(d.Date) + xScale.rangeBand()/2) + ",425)" ;
+            return "rotate(-90," + (xScale(d.year) + xScale.rangeBand()/2) + ",425)" ;
         });
 
     scales
@@ -205,50 +489,50 @@ function updateBarChart() {
         .append("rect")
         .attr("x", function(d , i){
             // console.log(xScale(i));
-            return xScale(d.Date);
+            return xScale(d.year);
         })
         .attr("y", function(d , i){
             // console.log(d.attendance);
-            return  yScale(d.attendance);
+            return  yScale(calcAqi(d.average_mean, parameter));
         })
         .attr("width", xScale.rangeBand)
         .attr("height", function(d , i){
-            return  height - yScale(d.attendance);
+            return  height - yScale(calcAqi(d.average_mean, parameter));
         })
         .attr("fill", function(d , i){
         		
-            return  colorScale(d.attendance);
-        })
-        .on('click', function(d,i){  changeSelection(d);  })
-  		  .on('mouseover', function(d,i){  setHover(d);  })
-        .on('mouseout', function(d,i){  clearHover();  });
+            return  colorScale(calcAqi(d.average_mean, parameter));
+        });
+        //.on('click', function(d,i){  changeSelection(d);  })
+  		 // .on('mouseover', function(d,i){  setHover(d);  })
+        //.on('mouseout', function(d,i){  clearHover();  });
 
     rectangle
         .attr("x", function(d , i){
             // console.log(xScale(i));
-            return xScale(d.Date);
+            return xScale(d.year);
         })
         .attr("y", function(d , i){
             // console.log(d.attendance);
-            return  yScale(d.attendance);
+            return  yScale(calcAqi(d.average_mean, parameter));
         })
         .attr("width", xScale.rangeBand)
         .attr("height", function(d , i){
-            return  height - yScale(d.attendance);
+            return  height - yScale(calcAqi(d.average_mean, parameter));
         })
         .attr("fill", function(d , i){
-            return  colorScale(d.attendance);
-        })
-        .on('click', function(d,i){  changeSelection(d);  })
-  		  .on('mouseover', function(d,i){  setHover(d);  })
-        .on('mouseout', function(d,i){  clearHover();  });
-        
+
+            return  colorScale(calcAqi(d.average_mean, parameter));
+        });
+
         
     rectangle
         .exit()
         .remove();
     // Make the bars respond to hover and click events
+    });
 }
+
 
 function updateForceDirectedGraph() {
     // ******* TODO: PART II *******
@@ -680,17 +964,18 @@ function deriveTeamSchedules() {
 // This is where execution begins; everything
 // above this is just function definitions
 // (nothing actually happens)
-
-d3.json("data/us.json", function (error, usStateData) {
+/*
+d3.json("data/Utah.geo.json", function (error, usStateData) {
     if (error) throw error;
 
     drawStates(usStateData);
 });
-d3.json("data/pac12_2013.json", function (error, loadedData) {
+*/
+d3.json("data/station.json", function (error, loadedData) {
     if (error) throw error;
 
     // Store the data in a global variable for all functions to access
-    data = loadedData;
+/*    data = loadedData;
 
     // These functions help us get slices of the data in
     // different shapes
@@ -702,9 +987,94 @@ d3.json("data/pac12_2013.json", function (error, loadedData) {
     selectedSeries = teamSchedules["Washington"];
 
     // Draw everything for the first time
-    updateBarChart();
-    updateForceDirectedGraph();
-    updateMap();
+    updateForceDirectedGraph();*/
+    updateBarChart("", "");
+    updateGoogleMap("","");
 
 
 });
+var marker = 0;
+// Create the Google Map…
+var map = new google.maps.Map(d3.select("#map").node(), {
+    zoom: 8,
+    center: new google.maps.LatLng(40.7767833, -112.06057),
+     mapTypeId: google.maps.MapTypeId.ROADMAP
+    //mapTypeId: google.maps.MapTypeId.SATELLITE
+    //mapTypeId: google.maps.MapTypeId.HYBRID
+});
+///cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone
+function updateGoogleMap( parameter, city) {
+    console.log("In google map:", city);
+d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone", function(error, data) {
+// Load the station data. When the data comes back, create an overlay.
+//d3.json("data/aggregate.json", function(data) {
+    var overlay = new google.maps.OverlayView();
+
+    // Add the container when the overlay  is added to the map.
+    overlay.onAdd = function() {
+        var dataneeded = data.cells;
+        var min = d3.min(dataneeded.map(function(d){return d.average_mean;}));
+        var max = d3.max(dataneeded.map(function(d){return d.average_mean;}));
+        var diff = max -min;
+        var sizeScale = d3.scale.linear().domain([min, max]).range([0.5,12]);
+        var color = d3.scale.linear()
+            .domain([min, min + diff/9,min + 2*diff/9, min + 3*diff/9, min +
+                4*diff/9, min + 5*diff/9,min + 6*diff/9,min + 7*diff/9,min + 8*diff/9, max])
+                .range(colorbrewer.BuPu[9]);
+        var layer = d3.select(this.getPanes().overlayMouseTarget).append("div")
+            .attr("class", "stations");
+        console.log(data.cells);
+        // Draw each marker as a separate SVG element.
+        // We could use a single SVG, but what size would it have?
+        overlay.draw = function() {
+            var projection = this.getProjection(),
+                padding = 20;
+            if(marker !== 0) {
+                console.log("not first time");
+                marker.remove();
+            }
+            marker = layer.selectAll("svg").data(data.cells);
+
+            marker.each(transform) // update existing markers
+                .enter().append("svg:svg")
+                .each(transform)
+                .attr("class", "marker");
+
+            marker.append("svg:circle")
+                .attr("r", function(d,i){
+                    if(d.city == city)
+                        return "20";
+                    else
+                        return sizeScale(d.average_mean);
+                })
+                .attr("cx", padding)
+                .attr("cy", padding)
+                .attr("fill",function(d,i){
+                        return color(d.average_mean);
+                })
+                .attr("opacity", function(d,i){
+                 if(d.city == city)
+                 return "1";
+                 else
+                 return "0.3";
+                 })
+                .on('click', function(d,i){  changeSelection(d);  })
+                .call(d3.helper.tooltip(
+                    function(d, i){
+                        return "<b> "+d.city + "</b><br/>Value: "+d.average_mean.toFixed(3);
+                    }
+                ));
+
+            function transform(d) {
+                d = new google.maps.LatLng(d.avg_lat, d.avg_long);
+                d = projection.fromLatLngToDivPixel(d);
+                return d3.select(this)
+                    .style("left", (d.x - padding) + "px")
+                    .style("top", (d.y - padding) + "px");
+            }
+        };
+    };
+
+    // Bind our overlay to the map…
+    overlay.setMap(map);
+})};

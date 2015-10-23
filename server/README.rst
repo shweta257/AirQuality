@@ -1,4 +1,4 @@
-Hello World! example for cubes
+AirQuality
 ==============================
 
 Files
@@ -12,7 +12,7 @@ This directory contains following files:
     * prepare_data.py - script for preparing the data: load them into database
                         and create a view
     * aggregate.py    - example aggregations
-
+    * requirements.sh - Install all the pip requirements 
 Quick start
 -----------
 
@@ -24,7 +24,7 @@ Get some aggregations::
 
     python2.7 aggregate.py
 
-Hello Server!
+AirQuality Server!
 -------------
 
 Run the server::
@@ -33,21 +33,21 @@ Run the server::
     
 Try the server. Aggregate::
 
-  curl "http://localhost:5000/cube/irbd_balance/aggregate"
+  curl "http://localhost:5000/cube/airquality/aggregate"
     
 Aggregate by year::
 
-  curl "http://localhost:5000/cube/irbd_balance/aggregate?drilldown=year"
+  curl "http://localhost:5000/cube/airquality/aggregate?drilldown=year"
 
 Aggregate by category (top level for dimension item)::
 
-  curl "http://localhost:5000/cube/irbd_balance/aggregate?drilldown=item" 
+  curl "http://localhost:5000/cube/airquality/aggregate?drilldown=item" 
 
 Aggregate by subcategory for item category 'e'::
 
-  curl "http://localhost:5000/cube/irbd_balance/aggregate?drilldown=item&cut=item:e"
+  curl "http://localhost:5000/cube/airquality/aggregate?drilldown=city&cut=parameter:Ozone"
 
-Note the implicit hierarchy of the `item` dimension.
+Note the implicit hierarchy of the `parameter` dimension.
 
 See also the Slicer server documentation for more types of requests:
 http://packages.python.org/cubes/server.html
@@ -55,7 +55,5 @@ http://packages.python.org/cubes/server.html
 Credits
 -------
 
-The example data used are IBRD Balance Sheet taken from The World Bank:
 
-https://finances.worldbank.org/Accounting-and-Control/IBRD-Balance-Sheet-FY2010/e8yz-96c6
 

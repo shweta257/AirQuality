@@ -3,8 +3,32 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Homework 3 Solution</title>
+    <title>Utah AirQuality</title>
     <style>
+
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        .stations, .stations svg {
+            position: absolute;
+        }
+
+        .stations svg {
+            width: 60px;
+            height: 50px;
+            padding: 2px;
+            font: 10px sans-serif;
+        }
+
+        .stations circle {
+
+            stroke-width: 0.5px;
+        }
+
         #states {
             stroke: rgb(255, 255, 255);
             fill: rgb(216, 216, 216);
@@ -20,11 +44,21 @@
             fill: rgb(123, 123, 123);
         }
         
-        
+       .tooltip{ background-color:rgba(0,0,0,0.9);;
+          margin: 10px;
+          height: 50px;
+          width: 150px;
+                  color:rgba(255,255,255,0.8);
+          padding-left: 10px; 
+          padding-top: 10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+        } 
 
         .node {
-        stroke: #fff;
-        stroke-width: 1.5px;
+        stroke: #000;
+        stroke-width: 0.5px;
     	}
 
 		.link {
@@ -51,62 +85,33 @@
         h2 {
             margin: 10px;
         }
-        
-        div {
-            display: inline-block;
-            border: 1px solid lightgray;
-            margin: 10px;
-        }
-        
-        div,
-        span {
-            padding: 10px;
-        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
     <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
     <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        <script type="application/javascript" src="aqi.js"></script>
 </head>
 
 <body>
     <body>
         <h3>Utah Air Quality</h3>
-        <span>Yogesh Mishra</span>
-        <span>u1010866@eng.utah.edu</span>
-        <span>u1010866</span>
+       <div id ="map" style="position:absolute;margin:10px;top:50px;align:center;height:400px;width:50%">
+        </div> 
 
-        <br/>
-        <hr/>
-        
-        <span id="info"></span>
-        <br/>
-        
-        <div>
-            <h2>Pac-12 Game Connections</h2>
-            <svg width="427" height="500" id="graph">
-                <g id="links"></g>
-                <g id="nodes"></g>
-            </svg>
-        </div>
-
-        <div>
-            <h2>Pac-12 Game Attendance</h2>
-            <svg width="427" height="500" id="barChart">
+        <div style="position:absolute;margin:10px;top:50px;text-align:right;right:0px;height:400px;width:45%">
+            <h2>Air Quality Index</h2>
+            <svg width="100%" height="100%" id="barChart">
                 <g id="xAxis"></g>
                 <g id="yAxis"></g>
                 <g id="bars"></g>
             </svg>
         </div>
+        <br>
 
-        <div>
-            <h2>Pac-12 Game Map</h2>
-            <svg width="900" height="500" id="map">
-                <path id="states"></path>
-                <g id="points"></g>
-            </svg>
-        </div>
 
+        <script type="application/javascript" src="tooltip.js"></script>
         <script type="application/javascript" src="script.js"></script>
     </body>
 </html>
