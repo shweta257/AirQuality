@@ -100,6 +100,26 @@
                         "measure": "arithmetic_mean"
                     },
                     {
+                        "name": "max1_value",
+                        "function": "max",
+                        "measure": "max1"
+                    },
+                    {
+                        "name": "max2_value",
+                        "function": "max",
+                        "measure": "max2"
+                    },
+                    {
+                        "name": "max3_value",
+                        "function": "max",
+                        "measure": "max3"
+                    },
+                    {
+                        "name": "max4_value",
+                        "function": "max",
+                        "measure": "max4"
+                    },
+                    {
                         "name": "record_count",
                         "function": "count"
                     }
