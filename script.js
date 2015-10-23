@@ -364,6 +364,7 @@ function changeSelection(d) {
 	
     // ******* TODO: PART V *******
    updateGoogleMap("", d.city);
+   updateBarChart("", d.city);
 }
 /* DRAWING FUNCTIONS */
 
@@ -458,7 +459,7 @@ function updateBarChart(parameter, city) {
         // center it
         .attr("alignment-baseline", "middle")
         .attr("transform", function(d ,i){
-            return "rotate(-90," + (xScale(d.year) + xScale.rangeBand()/2) + ",425)" ;
+            return "rotate(-90," + (xScale(d.year) + xScale.rangeBand()/2) + ",325)" ;
         });
 
     scales
@@ -476,7 +477,7 @@ function updateBarChart(parameter, city) {
         // center it
         .attr("alignment-baseline", "middle")
         .attr("transform", function(d ,i){
-            return "rotate(-90," + (xScale(d.year) + xScale.rangeBand()/2) + ",425)" ;
+            return "rotate(-90," + (xScale(d.year) + xScale.rangeBand()/2) + ",325)" ;
         });
 
     scales
