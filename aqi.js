@@ -1,12 +1,13 @@
 function calcAqi(avg_mean, parameter){
 	if(parameter === ""){
-		o3Aqi = o3Aqi(avg_mean);
+		return pm25Aqi(avg_mean);
+		/*o3Aqi = o3Aqi(avg_mean);
 		so2Aqi = so2Aqi(avg_mean);
 		no2Aqi=no2Aqi(avg_mean);
 		coAqi = coAqi(avg_mean);
 		pm25Aqi = pm25Aqi(avg_mean);
 		pm10Aqi = pm10Aqi(avg_mean);
-		aqi = max(pm25Aqi,pm10Aqi,coAqi,no2Aqi,so2Aqi,o3Aqi);
+		aqi = max(pm25Aqi,pm10Aqi,coAqi,no2Aqi,so2Aqi,o3Aqi);*/
 	}else if(parameter.indexOf("PM2.5") > -1){
 		aqi = pm25Aqi(avg_mean);
 	}else if(parameter.indexOf("PM10") > -1){
@@ -22,7 +23,6 @@ function calcAqi(avg_mean, parameter){
 	
 }
 function o3Aqi(avg_mean){
-	
 	if(0.0<avg_mean && avg_mean <= 0.065){
 		Ihi =50;
 		Ilo=0;

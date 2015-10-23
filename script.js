@@ -267,14 +267,14 @@ function no2Aqi(avg_mean){
 
 function calcAqi(avg_mean, parameter){
 	if(parameter === ""){
-		return pm10Aqi(avg_mean);
-		o3AqI = o3Aqi(avg_mean);
+		return pm25Aqi(avg_mean);
+		/*o3AqI = o3Aqi(avg_mean);
 		so2AqI = so2Aqi(avg_mean);
 		no2AqI=no2Aqi(avg_mean);
 		coAqI = coAqi(avg_mean);
 		pm25AqI = pm25Aqi(avg_mean);
 		pm10AqI = pm10Aqi(avg_mean);
-		aqI = Math.max(pm25AqI,pm10AqI,coAqI,no2AqI,so2AqI,o3AqI);
+		aqI = Math.max(pm25AqI,pm10AqI,coAqI,no2AqI,so2AqI,o3AqI);*/
 	}else if(parameter === "Ozone"){
 		aqI = o3Aqi(avg_mean);
 	}else if(parameter.indexOf("PM2.5") > -1){
