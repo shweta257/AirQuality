@@ -1,12 +1,24 @@
 function calcAqi(avg_mean, parameter){
-	
-	o3Aqi = o3Aqi(avg_mean, parameter);
-	so2Aqi = so2Aqi(avg_mean, parameter);
-	no2Aqi=no2Aqi(avg_mean, parameter);
-	coAqi = coAqi(avg_mean, parameter);
-	pm25Aqi = pm25Aqi(avg_mean, parameter);
-	pm10Aqi = pm10Aqi(avg_mean, parameter);
-	return max(pm25Aqi,pm10Aqi,coAqi,no2Aqi,so2Aqi,o3Aqi);
+	if(parameter === ""){
+		o3Aqi = o3Aqi(avg_mean);
+		so2Aqi = so2Aqi(avg_mean);
+		no2Aqi=no2Aqi(avg_mean);
+		coAqi = coAqi(avg_mean);
+		pm25Aqi = pm25Aqi(avg_mean);
+		pm10Aqi = pm10Aqi(avg_mean);
+		aqi = max(pm25Aqi,pm10Aqi,coAqi,no2Aqi,so2Aqi,o3Aqi);
+	}else if(parameter.indexOf("PM2.5") > -1){
+		aqi = pm25Aqi(avg_mean);
+	}else if(parameter.indexOf("PM10") > -1){
+		aqi = pm10Aqi(avg_mean);
+	}else ifif(parameter === "Sulfur dioxide"){
+		aqi = so2Aqi(avg_mean);
+	}else if(parameter === "Carbon monoxide"){
+		aqi = coAqi(avg_mean);
+	}else if(parameter.indexOf("Nitrogen dioxide") > -1){
+		aqi = no2Aqi(avg_mean);
+	}
+	return aqi;
 	
 }
 function o3Aqi(avg_mean){
