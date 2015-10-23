@@ -61,34 +61,7 @@ function changeSelection(d) {
     // a Team, or a Location.
 	
     // ******* TODO: PART V *******
-   if(d.data_type == "Game")
-	{
-		selectedSeries = [d];
-		updateBarChart();
-		updateForceDirectedGraph();
-		updateMap();
-	}
-	else if(d.data_type == "Team")
-	{
-		selectedSeries = teamSchedules[d.name];
-		updateBarChart();
-		updateForceDirectedGraph();
-		updateMap();
-		
-	}
-	else if (d.data_type == "Location") 
-	{
-    // Update everything that is data-dependent
-    // Note that updateBarChart() needs to come first
-    // so that the color scale is set
-    	selectedSeries = d["games"];
-		updateBarChart();
-		updateForceDirectedGraph();
-		updateMap();
-	}
-	else if (d.data_type == null) 
-	{
-	}
+   updateGoogleMap("", d.city);
 }
 /* DRAWING FUNCTIONS */
 
@@ -685,12 +658,12 @@ d3.json("data/Utah.geo.json", function (error, usStateData) {
 
     drawStates(usStateData);
 });
-
-d3.json("data/pac12_2013.json", function (error, loadedData) {
+*/
+d3.json("data/station.json", function (error, loadedData) {
     if (error) throw error;
 
     // Store the data in a global variable for all functions to access
-    data = loadedData;
+/*    data = loadedData;
 
     // These functions help us get slices of the data in
     // different shapes
@@ -703,12 +676,12 @@ d3.json("data/pac12_2013.json", function (error, loadedData) {
 
     // Draw everything for the first time
     updateBarChart();
-    updateForceDirectedGraph();
-    updateMap();
+    updateForceDirectedGraph();*/
+    updateGoogleMap("","");
 
 
 });
-*/
+var marker = 0;
 // Create the Google Map…
 var map = new google.maps.Map(d3.select("#map").node(), {
     zoom: 8,
@@ -718,9 +691,11 @@ var map = new google.maps.Map(d3.select("#map").node(), {
     //mapTypeId: google.maps.MapTypeId.HYBRID
 });
 ///cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone
-d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone", function(error, data) {
+function updateGoogleMap( parameter, city) {
+    console.log("In google map:", city);
+//d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone", function(error, data) {
 // Load the station data. When the data comes back, create an overlay.
-//d3.json("data/aggregate.json", function(data) {
+d3.json("data/aggregate.json", function(data) {
     var overlay = new google.maps.OverlayView();
 
     // Add the container when the overlay  is added to the map.
@@ -742,28 +717,38 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
         overlay.draw = function() {
             var projection = this.getProjection(),
                 padding = 10;
-            var marker = layer.selectAll("svg")
-                .data(data.cells)
-                .each(transform) // update existing markers
+            if(marker !== 0) {
+                console.log("not first time");
+                marker.remove();
+            }
+            marker = layer.selectAll("svg").data(data.cells);
+
+            marker.each(transform) // update existing markers
                 .enter().append("svg:svg")
                 .each(transform)
                 .attr("class", "marker");
 
-            // Add a circle.
             marker.append("svg:circle")
                 .attr("r", function(d,i){
                     return sizeScale(d.average_mean);
                 })
                 .attr("cx", padding)
                 .attr("cy", padding)
-                .attr("fill",function(d,i){ return color(d.average_mean);})
-                .on('click', function(d,i){  console.log("working"); return i;  })
+                .attr("fill",function(d,i){
+                        return color(d.average_mean);
+                })
+                .attr("opacity", function(d,i){
+                 if(d.city == city)
+                 return "1";
+                 else
+                 return "0.3";
+                 })
+                .on('click', function(d,i){  changeSelection(d);  })
                 .call(d3.helper.tooltip(
-        function(d, i){
-          return "<b> "+d.city + "</b><br/>Value: "+d.average_mean.toFixed(3);
-        }
-        ));
-
+                    function(d, i){
+                        return "<b> "+d.city + "</b><br/>Value: "+d.average_mean.toFixed(3);
+                    }
+                ));
 
             function transform(d) {
                 d = new google.maps.LatLng(d.avg_lat, d.avg_long);
@@ -777,4 +762,4 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
 
     // Bind our overlay to the map…
     overlay.setMap(map);
-});
+})};
