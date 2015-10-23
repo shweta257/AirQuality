@@ -1,3 +1,7 @@
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 function o3Aqi(avg_mean){
 	
@@ -32,7 +36,7 @@ function o3Aqi(avg_mean){
 		BPlo = 201;
 		
 	}else{
-		return 500;
+		return getRandomInt(1, 500);
 	}
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -82,7 +86,7 @@ function pm10Aqi(avg_mean){
 		BPhi = 604;
 		BPlo = 505;
 	}else{
-		return 500;
+		return getRandomInt(1, 500);
 	}
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -131,7 +135,7 @@ function pm25Aqi(avg_mean){
 		BPhi = 350.5;
 		BPlo = 500.4;
 	}else{
-		return 500;
+		return getRandomInt(1, 500);
 	}	
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -180,7 +184,7 @@ function coAqi(avg_mean){
 		BPlo = 40.5;
 		
 	}else{
-		return 500;
+		return getRandomInt(1, 500);
 	}
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -229,7 +233,7 @@ function so2Aqi(avg_mean){
 		BPlo = 0.805;
 		
 	}else{
-		return 500;
+		return getRandomInt(1, 500);
 	}
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -255,7 +259,7 @@ function no2Aqi(avg_mean){
 		BPlo = 1.65;
 		
 	}else{
-		return 500;
+		return getRandomInt(1, 500);
 	}
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
 }
@@ -263,6 +267,7 @@ function no2Aqi(avg_mean){
 
 function calcAqi(avg_mean, parameter){
 	if(parameter === ""){
+		return pm10Aqi(avg_mean);
 		o3AqI = o3Aqi(avg_mean);
 		so2AqI = so2Aqi(avg_mean);
 		no2AqI=no2Aqi(avg_mean);
@@ -270,10 +275,12 @@ function calcAqi(avg_mean, parameter){
 		pm25AqI = pm25Aqi(avg_mean);
 		pm10AqI = pm10Aqi(avg_mean);
 		aqI = Math.max(pm25AqI,pm10AqI,coAqI,no2AqI,so2AqI,o3AqI);
+	}else if(parameter === "Ozone"){
+		aqI = o3Aqi(avg_mean);
 	}else if(parameter.indexOf("PM2.5") > -1){
 		aqI = pm25Aqi(avg_mean);
 	}else if(parameter.indexOf("PM10") > -1){
-		aqI = pm10Aq(avg_mean);
+		aqI = pm10Aqi(avg_mean);
 	}else if(parameter === "Sulfur dioxide"){
 		aqI = so2Aqi(avg_mean);
 	}else if(parameter === "Carbon monoxide"){
@@ -369,7 +376,7 @@ function updateBarChart(parameter, city) {
     url += parameter != "" ? "parameter:" + encodeURIComponent(parameter) : "";
     url += (parameter != "" && city != "") ? ("|city:" + encodeURIComponent(city)) :
             ((city != "") ? ("city:" + encodeURIComponent(city)) : (""));
-
+    console.log(url);
     d3.json( url, function(error, selectedSeries) {
 
     var svgBounds = document.getElementById("barChart").getBoundingClientRect(),
