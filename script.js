@@ -306,8 +306,10 @@ var data,
     locationData,
     teamSchedules,
     selectedSeries,
+	selectedPollutants,
     colorScale;
 
+selectedPolltants = [ "ALL" , "Ozone"];
 
 /* EVENT RESPONSE FUNCTIONS */
 
@@ -534,7 +536,109 @@ function updateBarChart(parameter, city) {
     });
 }
 
+function updatePollutantChart(parameter, city) {
+//<div class="pollutant no2" style="border-color: rgb(65, 171, 93);">NO<sub>2</sub></div>
 
+
+		var svgBounds = document.getElementById("barChart").getBoundingClientRect(),
+			xAxisSize = 100,
+			yAxisSize = 60;
+
+		var height = svgBounds.height;
+		var xScale = d3.scale.ordinal()
+			.rangeRoundBands([0, width], 0.05);
+		console.log(selectedPolltants);
+		xScale.domain(selectedPolltants.map(function (d) {
+			return d;
+		}));
+
+		colorScale = d3.scale.linear()
+			.domain([0, 1])
+			.range(colorbrewer.Greens[2]);
+
+
+		// Create colorScale (note that colorScale
+		// is global! Other functions will refer to it)
+
+		// Create the axes (hint: use #xAxis and #yAxis)
+
+		// Create the bars (hint: use #bars)
+		var barGroupsEnter = d3.select("#PollutantChart");
+
+		var rectangle = barGroupsEnter.selectAll("rect").data(selectedPolltants);
+		var scales =  barGroupsEnter.selectAll("text").data(selectedPolltants);
+		scales
+			.enter()
+			.append("text").text(function (d) {
+				return d;
+			})
+			.attr("x", function(d,i){
+				return xScale(d) + (xScale.rangeBand())/2 ;
+			})
+			// dy is a shift along the y axis
+			.attr("dy", height/2)
+			// align it to the right
+			.attr("text-anchor", "middle")
+			// center it
+			.attr("alignment-baseline", "middle");
+
+
+		scales
+			.text(function (d) {
+				return d;
+			})
+		.attr("x", function(d,i){
+			return xScale(d) + (xScale.rangeBand())/2 ;
+		})
+		// dy is a shift along the y axis
+		.attr("dy", height/2)
+		// align it to the right
+		.attr("text-anchor", "middle")
+		// center it
+		.attr("alignment-baseline", "middle");
+
+		scales
+			.exit()
+			.remove();
+		// //Bar chart of rectangle
+
+		rectangle
+			.enter()
+			.append("rect")
+			.attr("x", function(d , i){
+				// console.log(xScale(i));
+				return xScale(d);
+			})
+			.attr("y", "0")
+			.attr("width", xScale.rangeBand)
+			.attr("height",function(d,i){ return height;})
+			.attr("fill", function(d , i){
+
+				return  colorScale(i);
+			});
+		//.on('click', function(d,i){  changeSelection(d);  })
+		// .on('mouseover', function(d,i){  setHover(d);  })
+		//.on('mouseout', function(d,i){  clearHover();  });
+
+		rectangle
+			.attr("x", function(d , i){
+				// console.log(xScale(i));
+				return xScale(d);
+			})
+			.attr("y", "0")
+			.attr("width", xScale.rangeBand)
+			.attr("height",function(d,i){ return height;})
+			.attr("fill", function(d , i){
+
+				return  colorScale(i);
+			});
+
+
+		rectangle
+			.exit()
+			.remove();
+		// Make the bars respond to hover and click events
+}
 function updateForceDirectedGraph() {
     // ******* TODO: PART II *******
     //Code inspired from the lecture site
