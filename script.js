@@ -1,3 +1,51 @@
+/*globals d3, topojson, document*/
+// These are helpers for those using JSHint
+var data,
+    locationData,
+    teamSchedules,
+    selectedSeries,
+	selectedPollutants,
+    colorScale;
+
+selectedPolltants = [ "ALL" , "Ozone"];
+
+
+
+$(document).ready(function() {
+    $('#p_all').click(function(e) {  
+      selected_pollutant="";
+      change_selection();
+    });
+    $('#p_o3').click(function(e) {  
+      selected_pollutant="Ozone";
+      change_selection();
+    });
+    $('#p_no2').click(function(e) {  
+      selected_pollutant="Nitrogen dioxide (NO2)";
+      change_selection();
+    });
+    $('#p_so2').click(function(e) {  
+      selected_pollutant="Sulfur dioxide";
+      change_selection();
+    });
+    $('#p_co').click(function(e) {  
+      selected_pollutant="Carbon monoxide";
+      change_selection();
+    });
+    $('#p_pm2_5').click(function(e) {  
+      selected_pollutant="pm2_5";
+      change_selection();
+    });
+    $('#p_pm10').click(function(e) {  
+      selected_pollutant="pm10";
+      change_selection();
+    });
+});
+
+
+
+
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -299,17 +347,6 @@ function calcAqi(avg_mean, parameter){
 
 
 
-
-/*globals d3, topojson, document*/
-// These are helpers for those using JSHint
-var data,
-    locationData,
-    teamSchedules,
-    selectedSeries,
-	selectedPollutants,
-    colorScale;
-
-selectedPolltants = [ "ALL" , "Ozone"];
 
 /* EVENT RESPONSE FUNCTIONS */
 
