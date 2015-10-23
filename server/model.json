@@ -91,7 +91,10 @@
                 {"name":"percentile_90", "label":"90th Percentile"},
                 {"name":"percentile_75", "label":"75th Percentile"},
                 {"name":"percentile_50", "label":"50th Percentile"},
-                {"name":"percentile_10", "label":"10th Percentile"}
+                {"name":"percentile_10", "label":"10th Percentile"},
+                {"name":"lat", "label":"Latitude"},
+                {"name":"lat_long", "label":"Latitude Longitude", "expression":"lat +','+ long"},
+                {"name":"long", "label":"Longitude"}
             ],
             "aggregates": [
                     {
@@ -102,6 +105,61 @@
                     {
                         "name": "record_count",
                         "function": "count"
+                    },
+                    {
+                        "name": "avg_lat",
+                        "function": "avg",
+                        "measure": "lat"
+                    },
+                    {
+                        "name": "max1_value",
+                        "function": "max",
+                        "measure": "max1"
+                    },
+                    {
+                        "name": "max2_value",
+                        "function": "max",
+                        "measure": "max2"
+                    },
+                    {
+                        "name": "max3_value",
+                        "function": "max",
+                        "measure": "max3"
+                    },
+                    {
+                        "name": "max4_value",
+                        "function": "max",
+                        "measure": "max4"
+                    },
+                    {
+                        "name": "percentile10_value",
+                        "function": "avg",
+                        "measure": "percentile_10"
+                    },
+                    {
+                        "name": "percentile99_value",
+                        "function": "avg",
+                        "measure": "percentile_99"
+                    },
+                    {
+                        "name": "percentile98_value",
+                        "function": "avg",
+                        "measure": "percentile_98"
+                    },
+                    {
+                        "name": "percentile95_value",
+                        "function": "avg",
+                        "measure": "percentile_95"
+                    },
+                    {
+                        "name": "percentile50_value",
+                        "function": "avg",
+                        "measure": "percentile_50"
+                    },
+                    {
+                            "name":"avg_long",
+                            "function":"avg",
+                            "measure":"long"
                     }
                 ],
             "mappings": {
