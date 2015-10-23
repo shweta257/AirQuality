@@ -190,7 +190,7 @@ function coAqi(avg_mean){
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
 }
 function so2Aqi(avg_mean){
-
+	avg_mean = avg_mean/1000;
 	if(0.0<avg_mean && avg_mean<=0.035){
 		Ihi =50;
 		Ilo=0;
@@ -239,7 +239,7 @@ function so2Aqi(avg_mean){
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
 }
 function no2Aqi(avg_mean){
-
+	avg_mean = avg_mean/1000;
 	if(0.65<avg_mean && avg_mean<=0.125){
 		Ihi =300;
 		Ilo=201;
