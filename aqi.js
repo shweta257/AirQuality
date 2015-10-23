@@ -11,7 +11,7 @@ function calcAqi(avg_mean, parameter){
 		aqi = pm25Aqi(avg_mean);
 	}else if(parameter.indexOf("PM10") > -1){
 		aqi = pm10Aqi(avg_mean);
-	}else if(parameter === "Sulfur dioxide"){
+	}else ifif(parameter === "Sulfur dioxide"){
 		aqi = so2Aqi(avg_mean);
 	}else if(parameter === "Carbon monoxide"){
 		aqi = coAqi(avg_mean);
@@ -103,6 +103,8 @@ function pm10Aqi(avg_mean){
 		Ilo=0.125;
 		BPhi = 604;
 		BPlo = 505;
+	}else{
+		return 500;
 	}
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -150,6 +152,8 @@ function pm25Aqi(avg_mean){
 		Ilo=0.125;
 		BPhi = 350.5;
 		BPlo = 500.4;
+	}else{
+		return 500;
 	}	
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -197,6 +201,8 @@ function coAqi(avg_mean){
 		BPhi = 50.4;
 		BPlo = 40.5;
 		
+	}else{
+		return 500;
 	}
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -244,6 +250,8 @@ function so2Aqi(avg_mean){
 		BPhi = 0.1004;
 		BPlo = 0.805;
 		
+	}else{
+		return 500;
 	}
 	
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
@@ -268,6 +276,8 @@ function no2Aqi(avg_mean){
 		BPhi = 2.04;
 		BPlo = 1.65;
 		
+	}else{
+		return 500;
 	}
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
 }
