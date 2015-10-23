@@ -11,7 +11,7 @@ function calcAqi(avg_mean, parameter){
 		aqi = pm25Aqi(avg_mean);
 	}else if(parameter.indexOf("PM10") > -1){
 		aqi = pm10Aqi(avg_mean);
-	}else ifif(parameter === "Sulfur dioxide"){
+	}else if(parameter === "Sulfur dioxide"){
 		aqi = so2Aqi(avg_mean);
 	}else if(parameter === "Carbon monoxide"){
 		aqi = coAqi(avg_mean);

@@ -65,16 +65,27 @@ function changeSelection(d) {
 }
 /* DRAWING FUNCTIONS */
 
-function updateBarChart() {
+function updateBarChart(parameter, city) {
 	 //Code inspired from the lecture site	 
 	 //http://dataviscourse.net/2015/lectures/lecture-advanced-d3/
+    var url = "http://cube.geekological.com/cube/airquality/aggregate?drilldown=year";
+    if(parameter != "" || city != "")
+    url += "&cut=";
+    url += parameter != "" ? "parameter:" + encodeURIComponent(parameter) : "";
+    url += (parameter != "" && city != "") ? ("|city:" + encodeURIComponent(city)) :
+            ((city != "") ? ("city:" + encodeURIComponent(city)) : (""));
+
+    d3.json( url, function(error, selectedSeries) {
+
     var svgBounds = document.getElementById("barChart").getBoundingClientRect(),
         xAxisSize = 100,
         yAxisSize = 60;
+
+    selectedSeries = selectedSeries.cells;
     var margin = {top: 40, right: 30, bottom: 40, left: 40};
     var width = svgBounds.width - margin.left - margin.right;
     var height = svgBounds.height - margin.top - margin.bottom;
-    var max =90000;
+    var max =500;
     var textWidth = 60;
     // ******* TODO: PART I *******
 
@@ -84,7 +95,7 @@ function updateBarChart() {
         .rangeRoundBands([0, width], 0.05);
 
     xScale.domain(selectedSeries.map(function (d) {
-        return d["Date"];
+        return d["year"];
     }));
 
     var yScale = d3.scale.linear()
@@ -102,12 +113,11 @@ function updateBarChart() {
         .call(xAxis);
 
 
-    var min = d3.min(selectedSeries, function(d) { return d.attendance;});
 
  
-	    colorScale = d3.scale.linear()
-        .domain([10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000])
-        .range(colorbrewer.Greens[9]);
+    colorScale = d3.scale.linear()
+        .domain([0, 100, 200, 300, 400, 500])
+        .range(colorbrewer.Greens[5]);
 
 
     var yAxis = d3.svg.axis();
@@ -133,11 +143,11 @@ function updateBarChart() {
     scales
         .enter()
         .append("text").text(function (d) {
-            console.log("datetime", d.Date);
-            return d.Date;
+            console.log("datetime", d.year);
+            return d.year;
         })
         .attr("x", function(d,i){
-            return xScale(d.Date) + (xScale.rangeBand())/2 ;
+            return xScale(d.year) + (xScale.rangeBand())/2 ;
         })
         // dy is a shift along the y axis
         .attr("dy", height + 5)
@@ -146,16 +156,16 @@ function updateBarChart() {
         // center it
         .attr("alignment-baseline", "middle")
         .attr("transform", function(d ,i){
-            return "rotate(-90," + (xScale(d.Date) + xScale.rangeBand()/2) + ",425)" ;
+            return "rotate(-90," + (xScale(d.year) + xScale.rangeBand()/2) + ",425)" ;
         });
 
     scales
         .text(function (d) {
-            console.log("datetime", d.Date);
-            return d.Date;
+            console.log("datetime", d.year);
+            return d.year;
         })
         .attr("x", function(d,i){
-            return xScale(d.Date) + (xScale.rangeBand())/2 ;
+            return xScale(d.year) + (xScale.rangeBand())/2 ;
         })
         // dy is a shift along the y axis
         .attr("dy", height + 5)
@@ -177,50 +187,50 @@ function updateBarChart() {
         .append("rect")
         .attr("x", function(d , i){
             // console.log(xScale(i));
-            return xScale(d.Date);
+            return xScale(d.year);
         })
         .attr("y", function(d , i){
             // console.log(d.attendance);
-            return  yScale(d.attendance);
+            return  yScale(calcAqi(d.average_mean, parameter));
         })
         .attr("width", xScale.rangeBand)
         .attr("height", function(d , i){
-            return  height - yScale(d.attendance);
+            return  height - yScale(calcAqi(d.average_mean, parameter));
         })
         .attr("fill", function(d , i){
         		
-            return  colorScale(d.attendance);
-        })
-        .on('click', function(d,i){  changeSelection(d);  })
-  		  .on('mouseover', function(d,i){  setHover(d);  })
-        .on('mouseout', function(d,i){  clearHover();  });
+            return  colorScale(calcAqi(d.average_mean, parameter));
+        });
+        //.on('click', function(d,i){  changeSelection(d);  })
+  		 // .on('mouseover', function(d,i){  setHover(d);  })
+        //.on('mouseout', function(d,i){  clearHover();  });
 
     rectangle
         .attr("x", function(d , i){
             // console.log(xScale(i));
-            return xScale(d.Date);
+            return xScale(d.year);
         })
         .attr("y", function(d , i){
             // console.log(d.attendance);
-            return  yScale(d.attendance);
+            return  yScale(calcAqi(d.average_mean, parameter));
         })
         .attr("width", xScale.rangeBand)
         .attr("height", function(d , i){
-            return  height - yScale(d.attendance);
+            return  height - yScale(calcAqi(d.average_mean, parameter));
         })
         .attr("fill", function(d , i){
-            return  colorScale(d.attendance);
-        })
-        .on('click', function(d,i){  changeSelection(d);  })
-  		  .on('mouseover', function(d,i){  setHover(d);  })
-        .on('mouseout', function(d,i){  clearHover();  });
-        
+
+            return  colorScale(calcAqi(d.average_mean, parameter));
+        });
+
         
     rectangle
         .exit()
         .remove();
     // Make the bars respond to hover and click events
+    });
 }
+
 
 function updateForceDirectedGraph() {
     // ******* TODO: PART II *******
@@ -675,8 +685,8 @@ d3.json("data/station.json", function (error, loadedData) {
     selectedSeries = teamSchedules["Washington"];
 
     // Draw everything for the first time
-    updateBarChart();
     updateForceDirectedGraph();*/
+    updateBarChart("", "");
     updateGoogleMap("","");
 
 
@@ -693,9 +703,9 @@ var map = new google.maps.Map(d3.select("#map").node(), {
 ///cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone
 function updateGoogleMap( parameter, city) {
     console.log("In google map:", city);
-//d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone", function(error, data) {
+d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone", function(error, data) {
 // Load the station data. When the data comes back, create an overlay.
-d3.json("data/aggregate.json", function(data) {
+//d3.json("data/aggregate.json", function(data) {
     var overlay = new google.maps.OverlayView();
 
     // Add the container when the overlay  is added to the map.
@@ -716,7 +726,7 @@ d3.json("data/aggregate.json", function(data) {
         // We could use a single SVG, but what size would it have?
         overlay.draw = function() {
             var projection = this.getProjection(),
-                padding = 10;
+                padding = 20;
             if(marker !== 0) {
                 console.log("not first time");
                 marker.remove();
@@ -730,7 +740,10 @@ d3.json("data/aggregate.json", function(data) {
 
             marker.append("svg:circle")
                 .attr("r", function(d,i){
-                    return sizeScale(d.average_mean);
+                    if(d.city == city)
+                        return "20";
+                    else
+                        return sizeScale(d.average_mean);
                 })
                 .attr("cx", padding)
                 .attr("cy", padding)

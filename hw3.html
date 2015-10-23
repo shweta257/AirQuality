@@ -19,7 +19,7 @@
 
         .stations svg {
             width: 60px;
-            height: 20px;
+            height: 50px;
             padding: 2px;
             font: 10px sans-serif;
         }
@@ -91,6 +91,7 @@
     <script src="http://d3js.org/d3.geo.projection.v0.min.js"></script>
     <script src="http://d3js.org/colorbrewer.v1.min.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="aqi.js"></script>
 </head>
 
 <body>
@@ -101,7 +102,7 @@
 
         <div style="position:absolute;margin:10px;top:50px;text-align:right;right:0px;height:400px;width:45%">
             <h2>Air Quality Index</h2>
-            <svg width="427" height="500" id="barChart">
+            <svg width="100%" height="100%" id="barChart">
                 <g id="xAxis"></g>
                 <g id="yAxis"></g>
                 <g id="bars"></g>
