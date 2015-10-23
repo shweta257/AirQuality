@@ -85,6 +85,11 @@
         h2 {
             margin: 10px;
         }
+        #pollutant-selector{clear:both;margin-top:10px;text-align:center;}
+        #pollutant-selector .pollutant{width:140px;display:inline-block;text-align:center;padding:12px 0;line-height:12px;border-top:5px solid;border-bottom:3px solid;cursor:pointer;opacity:.25;-webkit-transition:opacity .25s;-moz-transition:opacity .25s;-ms-transition:opacity .25s;-o-transition:opacity .25s;transition:opacity .25s;color:#525252;}
+         #pollutant-selector .pollutant:hover{opacity:.5}
+#pollutant-selector .pollutant.active{opacity:1}
+#pollutant-selector .pollutant sub{vertical-align:sub;font-size:.75em;display:inline-block;margin-bottom:-1em}
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
@@ -95,7 +100,10 @@
 
 <body>
     <body>
-        <h3>Utah Air Quality</h3>
+         <div style="position:absolute; top:0px;  width:100%;margin:0 auto;  clear: both;
+    text-align: center; ">
+        <div id="pollutant-selector"><div class="pollutant all" style="border-color: rgb(66, 146, 198);">All Pollutants</div><div class="pollutant no2 active" style="border-color: rgb(65, 171, 93);">NO<sub>2</sub></div><div class="pollutant so2" style="border-color: rgb(128, 125, 186);">SO<sub>2</sub></div><div class="pollutant pm2_5" style="border-color: rgb(239, 59, 44);">PM<sub>2.5</sub></div><div class="pollutant pm10" style="border-color: rgb(241, 105, 19);">PM<sub>10</sub></div></div>
+        </div>
        <div id ="map" style="position:absolute;margin:10px;top:50px;align:center;height:400px;width:50%">
         </div> 
 
