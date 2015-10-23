@@ -174,7 +174,7 @@ function updateBarChart(parameter, city) {
         // center it
         .attr("alignment-baseline", "middle")
         .attr("transform", function(d ,i){
-            return "rotate(-90," + (xScale(d.Date) + xScale.rangeBand()/2) + ",425)" ;
+            return "rotate(-90," + (xScale(d.year) + xScale.rangeBand()/2) + ",425)" ;
         });
 
     scales
