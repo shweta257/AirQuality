@@ -48,12 +48,12 @@ var year=2013;
               $.ajax({ 
                 type: 'GET', 
 //                url: 'http://cube.geekological.com/cube/airquality/facts?cut=parameter:Ozone', 
-                url: 'http://cube.geekological.com/cube/airquality/facts?cut=parameter_code:'+encodeURIComponent(parameter)+'|year:'+year+'&pagesize=1000&page=0', 
+                url: 'http://cube.geekological.com/cube/airquality/facts?cut=parameter_code:'+encodeURIComponent(parameter)+'|year:'+year+'&pagesize=5000&page=0', 
                 //data: { get_param: 'value' }, 
                 dataType:'json',
                 success: function (data) { 
                         var tempData = data;
-                        var tempString= '{"max":50000,"data":'+ JSON.stringify(tempData)+ '}';
+                        var tempString= '{"max":100000,"data":'+ JSON.stringify(tempData)+ '}';
                         testData=JSON.parse(tempString);
                         console.log(testData);
         var baseLayer = L.tileLayer(
@@ -65,8 +65,8 @@ var year=2013;
 
         var cfg = {
           // radius should be small ONLY if scaleRadius is true (or small radius is intended)
-          "radius": 0.3,
-          "maxOpacity": .6, 
+          "radius": 0.35,
+          "maxOpacity": .5, 
           // scales the radius based on map zoom
           "scaleRadius": true, 
           // if set to false the heatmap uses the global maximum for colorization
@@ -86,7 +86,7 @@ var year=2013;
 
         map = new L.Map('map', {
           center: new L.LatLng(41.6586, -112.3568),
-          zoom: 6,
+          zoom: 7,
           layers: [baseLayer, heatmapLayer]
         });
         }
@@ -103,7 +103,7 @@ var year=2013;
 
 
     	<select style = "position:absolute;right:10px; top: 30px;" name="aa" onchange="refresh(parameter,this.value,1)"> 
-	<option value="">Map</option>
+	<option value="2013">2013</option>
 	<option value="2003">2003</option>
 	<option value="2004">2004</option>
 	<option value="2005">2005</option>
@@ -114,17 +114,18 @@ var year=2013;
 	<option value="2010">2010</option>
 	<option value="2011">2011</option>
 	<option value="2012">2012</option>
-	<option value="2013">2013</option>
         	</select>
 
 	<select style = "position:absolute;right:10px; top: 80px;" name="aa" onchange="refresh(this.value,year,1)"> 
-	<option value="">Map</option>
 	<option value="44201">Ozone</option>
     <option value="42602">Nitrogen dioxide</option>
     <option value="42401">Sulfur dioxide</option>
     <option value="42101">Carbon monooxide</option>
     <option value="88101-88502">PM 2.5</option>
     <option value="81102-86502">PM 10</option>
+    <option value="61101">Wind Speed</option>
+    <option value="64101">Pressure</option>
+    <option value="62101">Outdoor Tempearature</option>
     	</select>
   </body>
 </html>
