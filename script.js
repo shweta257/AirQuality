@@ -4,41 +4,48 @@ var data,
     locationData,
     teamSchedules,
     selectedSeries,
-	selectedPollutants,
-    colorScale;
+	selected_pollutant,
+    colorScale,
+	city
 
-selectedPolltants = [ "ALL" , "Ozone"];
+		selected_pollutant = "44201";
+		city = ""
 
 
-
+colorScale = d3.scale.quantize()
+	.domain([0, 51, 101, 151, 201, 301])
+	//.range(["red","green","blue","yellow","black"]);
+	.range(["#00FF00","#FFD700","#FF8C00","#FF0000","#C71585","#80080"]);
+console.log("color:", colorScale(40));
+console.log("color:", colorScale(10));
 $(document).ready(function() {
     $('#p_all').click(function(e) {  
       selected_pollutant="";
-      change_selection();
+		changeSelection();
     });
     $('#p_o3').click(function(e) {  
-      selected_pollutant="Ozone";
-      change_selection();
+      selected_pollutant="44201";
+		changeSelection();
     });
     $('#p_no2').click(function(e) {  
-      selected_pollutant="Nitrogen dioxide (NO2)";
-      change_selection();
+      selected_pollutant="42602";
+		changeSelection();
     });
     $('#p_so2').click(function(e) {  
-      selected_pollutant="Sulfur dioxide";
-      change_selection();
+      selected_pollutant="42401";
+		changeSelection();
     });
     $('#p_co').click(function(e) {  
-      selected_pollutant="Carbon monoxide";
-      change_selection();
+      selected_pollutant="42101";
+		changeSelection();
     });
     $('#p_pm2_5').click(function(e) {  
-      selected_pollutant="pm2_5";
-      change_selection();
+      selected_pollutant="88101-88502";
+		changeSelection();
     });
     $('#p_pm10').click(function(e) {  
-      selected_pollutant="pm10";
-      change_selection();
+      selected_pollutant="81102-86502";
+		changeSelection();
     });
 });
 
@@ -307,7 +314,7 @@ function no2Aqi(avg_mean){
 		BPlo = 1.65;
 		
 	}else{
-		return getRandomInt(1, 500);
+		return getRandomInt(201, 500);
 	}
 	return AQI = (Ihi-Ilo)*(avg_mean-BPlo)/(BPhi-BPlo)+Ilo;
 }
@@ -323,17 +330,17 @@ function calcAqi(avg_mean, parameter){
 		pm25AqI = pm25Aqi(avg_mean);
 		pm10AqI = pm10Aqi(avg_mean);
 		aqI = Math.max(pm25AqI,pm10AqI,coAqI,no2AqI,so2AqI,o3AqI);*/
-	}else if(parameter === "Ozone"){
+	}else if(parameter === "44201"){
 		aqI = o3Aqi(avg_mean);
-	}else if(parameter.indexOf("PM2.5") > -1){
+	}else if(parameter === "88101-88502"){
 		aqI = pm25Aqi(avg_mean);
-	}else if(parameter.indexOf("PM10") > -1){
+	}else if(parameter === "81102-86502"){
 		aqI = pm10Aqi(avg_mean);
-	}else if(parameter === "Sulfur dioxide"){
+	}else if(parameter === "42401"){
 		aqI = so2Aqi(avg_mean);
-	}else if(parameter === "Carbon monoxide"){
+	}else if(parameter === "42101"){
 		aqi = coAqi(avg_mean);
-	}else if(parameter.indexOf("Nitrogen dioxide") > -1){
+	}else if(parameter === "42602"){
 		aqI = no2Aqi(avg_mean);
 	}
 	return aqI;
@@ -402,19 +409,19 @@ function changeSelection(d) {
     // a Team, or a Location.
 	
     // ******* TODO: PART V *******
-   updateGoogleMap("", d.city);
-   updateBarChart("", d.city);
+   updateGoogleMap();
+   updateBarChart();
 }
 /* DRAWING FUNCTIONS */
 
-function updateBarChart(parameter, city) {
+function updateBarChart() {
 	 //Code inspired from the lecture site	 
 	 //http://dataviscourse.net/2015/lectures/lecture-advanced-d3/
     var url = "http://cube.geekological.com/cube/airquality/aggregate?drilldown=year";
-    if(parameter != "" || city != "")
+    if(selected_pollutant != "" || city != "")
     url += "&cut=";
-    url += parameter != "" ? "parameter:" + encodeURIComponent(parameter) : "";
-    url += (parameter != "" && city != "") ? ("|city:" + encodeURIComponent(city)) :
+    url += selected_pollutant != "" ? "parameter_code:" + encodeURIComponent(selected_pollutant) : "";
+    url += (selected_pollutant != "" && city != "") ? ("|city:" + encodeURIComponent(city)) :
             ((city != "") ? ("city:" + encodeURIComponent(city)) : (""));
     console.log(url);
     d3.json( url, function(error, selectedSeries) {
@@ -424,6 +431,7 @@ function updateBarChart(parameter, city) {
         yAxisSize = 60;
 
     selectedSeries = selectedSeries.cells;
+		console.log(selectedSeries);
     var margin = {top: 40, right: 30, bottom: 40, left: 40};
     var width = svgBounds.width - margin.left - margin.right;
     var height = svgBounds.height - margin.top - margin.bottom;
@@ -456,10 +464,7 @@ function updateBarChart(parameter, city) {
 
 
 
- 
-    colorScale = d3.scale.linear()
-        .domain([0, 100, 200, 300, 400, 500])
-        .range(colorbrewer.Greens[5]);
+
 
 
     var yAxis = d3.svg.axis();
@@ -485,7 +490,7 @@ function updateBarChart(parameter, city) {
     scales
         .enter()
         .append("text").text(function (d) {
-            console.log("datetime", d.year);
+            console.log("datetime1", d.year);
             return d.year;
         })
         .attr("x", function(d,i){
@@ -503,7 +508,7 @@ function updateBarChart(parameter, city) {
 
     scales
         .text(function (d) {
-            console.log("datetime", d.year);
+            console.log("datetime2", d.year);
             return d.year;
         })
         .attr("x", function(d,i){
@@ -523,7 +528,7 @@ function updateBarChart(parameter, city) {
         .exit()
         .remove();
     // //Bar chart of rectangle
-
+	console.log("height",height);
     rectangle
         .enter()
         .append("rect")
@@ -532,16 +537,17 @@ function updateBarChart(parameter, city) {
             return xScale(d.year);
         })
         .attr("y", function(d , i){
-            // console.log(d.attendance);
-            return  yScale(calcAqi(d.average_mean, parameter));
+            console.log("y:",calcAqi(d.average_mean, selected_pollutant));
+            return  yScale(calcAqi(d.average_mean, selected_pollutant));
         })
         .attr("width", xScale.rangeBand)
         .attr("height", function(d , i){
-            return  height - yScale(calcAqi(d.average_mean, parameter));
+			console.log("h:",height - yScale(calcAqi(d.average_mean, selected_pollutant)));
+            return  height - yScale(calcAqi(d.average_mean, selected_pollutant));
         })
         .attr("fill", function(d , i){
         		
-            return  colorScale(calcAqi(d.average_mean, parameter));
+            return  colorScale(calcAqi(d.average_mean, selected_pollutant));
         });
         //.on('click', function(d,i){  changeSelection(d);  })
   		 // .on('mouseover', function(d,i){  setHover(d);  })
@@ -554,15 +560,17 @@ function updateBarChart(parameter, city) {
         })
         .attr("y", function(d , i){
             // console.log(d.attendance);
-            return  yScale(calcAqi(d.average_mean, parameter));
+			console.log("y",calcAqi(d.average_mean, selected_pollutant));
+            return  yScale(calcAqi(d.average_mean, selected_pollutant));
         })
         .attr("width", xScale.rangeBand)
         .attr("height", function(d , i){
-            return  height - yScale(calcAqi(d.average_mean, parameter));
+			console.log("h",height - yScale(calcAqi(d.average_mean, selected_pollutant)));
+            return  height - yScale(calcAqi(d.average_mean, selected_pollutant));
         })
         .attr("fill", function(d , i){
 
-            return  colorScale(calcAqi(d.average_mean, parameter));
+            return  colorScale(calcAqi(d.average_mean, selected_pollutant));
         });
 
         
@@ -573,109 +581,7 @@ function updateBarChart(parameter, city) {
     });
 }
 
-function updatePollutantChart(parameter, city) {
-//<div class="pollutant no2" style="border-color: rgb(65, 171, 93);">NO<sub>2</sub></div>
 
-
-		var svgBounds = document.getElementById("barChart").getBoundingClientRect(),
-			xAxisSize = 100,
-			yAxisSize = 60;
-
-		var height = svgBounds.height;
-		var xScale = d3.scale.ordinal()
-			.rangeRoundBands([0, width], 0.05);
-		console.log(selectedPolltants);
-		xScale.domain(selectedPolltants.map(function (d) {
-			return d;
-		}));
-
-		colorScale = d3.scale.linear()
-			.domain([0, 1])
-			.range(colorbrewer.Greens[2]);
-
-
-		// Create colorScale (note that colorScale
-		// is global! Other functions will refer to it)
-
-		// Create the axes (hint: use #xAxis and #yAxis)
-
-		// Create the bars (hint: use #bars)
-		var barGroupsEnter = d3.select("#PollutantChart");
-
-		var rectangle = barGroupsEnter.selectAll("rect").data(selectedPolltants);
-		var scales =  barGroupsEnter.selectAll("text").data(selectedPolltants);
-		scales
-			.enter()
-			.append("text").text(function (d) {
-				return d;
-			})
-			.attr("x", function(d,i){
-				return xScale(d) + (xScale.rangeBand())/2 ;
-			})
-			// dy is a shift along the y axis
-			.attr("dy", height/2)
-			// align it to the right
-			.attr("text-anchor", "middle")
-			// center it
-			.attr("alignment-baseline", "middle");
-
-
-		scales
-			.text(function (d) {
-				return d;
-			})
-		.attr("x", function(d,i){
-			return xScale(d) + (xScale.rangeBand())/2 ;
-		})
-		// dy is a shift along the y axis
-		.attr("dy", height/2)
-		// align it to the right
-		.attr("text-anchor", "middle")
-		// center it
-		.attr("alignment-baseline", "middle");
-
-		scales
-			.exit()
-			.remove();
-		// //Bar chart of rectangle
-
-		rectangle
-			.enter()
-			.append("rect")
-			.attr("x", function(d , i){
-				// console.log(xScale(i));
-				return xScale(d);
-			})
-			.attr("y", "0")
-			.attr("width", xScale.rangeBand)
-			.attr("height",function(d,i){ return height;})
-			.attr("fill", function(d , i){
-
-				return  colorScale(i);
-			});
-		//.on('click', function(d,i){  changeSelection(d);  })
-		// .on('mouseover', function(d,i){  setHover(d);  })
-		//.on('mouseout', function(d,i){  clearHover();  });
-
-		rectangle
-			.attr("x", function(d , i){
-				// console.log(xScale(i));
-				return xScale(d);
-			})
-			.attr("y", "0")
-			.attr("width", xScale.rangeBand)
-			.attr("height",function(d,i){ return height;})
-			.attr("fill", function(d , i){
-
-				return  colorScale(i);
-			});
-
-
-		rectangle
-			.exit()
-			.remove();
-		// Make the bars respond to hover and click events
-}
 function updateForceDirectedGraph() {
     // ******* TODO: PART II *******
     //Code inspired from the lecture site
@@ -1130,8 +1036,9 @@ d3.json("data/station.json", function (error, loadedData) {
 
     // Draw everything for the first time
     updateForceDirectedGraph();*/
-    updateBarChart("", "");
-    updateGoogleMap("","");
+	console.log("came here");
+	updateGoogleMap();
+	updateBarChart();
 
 
 });
@@ -1145,11 +1052,29 @@ var map = new google.maps.Map(d3.select("#map").node(), {
     //mapTypeId: google.maps.MapTypeId.HYBRID
 });
 ///cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone
-function updateGoogleMap( parameter, city) {
-    console.log("In google map:", city);
-d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone", function(error, data) {
+function updateGoogleMap() {
+    console.log("In google map:", city, selected_pollutant);
+	var url1 = "http://cube.geekological.com/cube/airquality/aggregate?drilldown=city";
+	console.log("se out:",url1);
+	if(selected_pollutant !== "")
+	{
+		console.log("se:",url1);
+		url1 += "|parameter_code&cut=";
+		url1 += "parameter_code:" + encodeURIComponent(selected_pollutant);
+	}
+	else
+	{
+		url1 += "|parameter_code&cut=parameter_code:44201";
+	}
+	console.log(url1);
+	alert("google",url1);
+	d3.json(url1, function(error, data) {
+		if (error) throw error;
+//d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|&cut=parameter:Ozone", function(error, data) {
 // Load the station data. When the data comes back, create an overlay.
 //d3.json("data/aggregate.json", function(data) {
+		alert("google");
+	console.log("map:",data);
     var overlay = new google.maps.OverlayView();
 
     // Add the container when the overlay  is added to the map.
@@ -1198,9 +1123,11 @@ d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=c
                  if(d.city == city)
                  return "1";
                  else
-                 return "0.3";
+                 return "0.5";
                  })
-                .on('click', function(d,i){  changeSelection(d);  })
+                .on('click', function(d,i){
+					city = d.city;
+					changeSelection(d);  })
                 .call(d3.helper.tooltip(
                     function(d, i){
                         return "<b> "+d.city + "</b><br/>Value: "+d.average_mean.toFixed(3);
