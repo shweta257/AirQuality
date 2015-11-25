@@ -23,6 +23,15 @@
             padding: 2px;
             font: 10px sans-serif;
         }
+       .papyrus {
+	font-family: Papyrus, fantasy;
+	font-size: 18px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;
+	line-height: 15.4px;
+            text-align:center;
+}
 
         .stations circle {
 
@@ -102,7 +111,8 @@
 
 <body>
     <body>
-         <div style="position:absolute; top:0px;  width:100%;margin:0 auto;  clear: both;
+            <span class="papyrus" style="    position: absolute;    top: 29px;    z-index: 11;    left: 15px;"> Air Quality of Utah (data from <a href="https://opendata.utah.gov/browse?q=Annual+All+Air+Quality" target="_blank">US EPA</a>)  </span>
+         <div style="position:absolute;  z-index:-2; top:0px;  width:100%;margin:0 auto;  clear: both;
     text-align: center; ">
         <div id="pollutant-selector">
                 <div id="p_o3" class="pollutant o3 " style="border-color: rgb(0, 132, 253);">O<sub>3</sub></div>
@@ -112,11 +122,11 @@
                 <div id="p_pm2_5" class="pollutant pm2_5" style="border-color: rgb(239, 59, 44);">PM<sub>2.5</sub></div>
                 <div id="p_pm10" class="pollutant pm10" style="border-color: rgb(241, 105, 19);">PM<sub>10</sub></div></div>
         </div>
-       <div id ="map" style="position:absolute;margin:10px;top:50px;align:center;height:400px;width:50%">
+               <div id ="map" style="position:absolute;margin:10px;top:50px;align:center;height:400px;width:50%">
         </div> 
 
         <div style="position:absolute;margin:10px;top:50px;text-align:right;right:0px;height:400px;width:45%">
-            <h2>Air Quality Index</h2>
+            <span class="papyrus">Air Quality Index w.r.t City from Map pane on left (Real data)</span>
             <svg width="100%" height="100%" id="barChart">
                 <g id="xAxis"></g>
                 <g id="yAxis"></g>
@@ -131,10 +141,12 @@
 
         <script type="application/javascript" src="tooltip.js"></script>
         <script type="application/javascript" src="script.js"></script>
-        <div style="position:absolute; top: 500px; width:60%;">
+        <div class="papyrus" style="position:absolute; top: 500px; width:60%;">
+                HeatMap
                 <iframe src="heatmap.html" style="width:100%; height:400px;"> </iframe>
         </div>
-        <div style="position:absolute; top: 500px; left:60%; width:40%;">
+        <div class="papyrus" style="position:absolute; top: 500px; left:60%; width:40%;">
+                Pollutants Comparator 
                 <iframe src="try.html" style="width:100%; height:400px;"> </iframe>
         </div>
     </body>
