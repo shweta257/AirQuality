@@ -16,8 +16,8 @@ colorScale = d3.scale.quantize()
 	.domain([0, 51, 101, 151, 201, 301])
 	//.range(["red","green","blue","yellow","black"]);
 	.range(["#00FF00","#FFD700","#FF8C00","#FF0000","#C71585","#80080"]);
-console.log("color:", colorScale(40));
-console.log("color:", colorScale(10));
+//console.log("color:", colorScale(40));
+//console.log("color:", colorScale(10));
 $(document).ready(function() {
     $('#p_all').click(function(e) {  
       selected_pollutant="";
@@ -379,7 +379,7 @@ function setHover(d) {
 	else if (d.data_type == "Location") 
 	{
 		var games = d["games"];
-		console.log("games length", games.length);
+		//console.log("games length", games.length);
 		if(games.length > 0)
 		{
 			displayitem = displayitem + games[0]["Visit Team Name"] + "@" + games[0]["Home Team Name"];
@@ -423,7 +423,7 @@ function updateBarChart() {
     url += selected_pollutant != "" ? "parameter_code:" + encodeURIComponent(selected_pollutant) : "";
     url += (selected_pollutant != "" && city != "") ? ("|city:" + encodeURIComponent(city)) :
             ((city != "") ? ("city:" + encodeURIComponent(city)) : (""));
-    console.log(url);
+    //console.log(url);
     d3.json( url, function(error, selectedSeries) {
 
     var svgBounds = document.getElementById("barChart").getBoundingClientRect(),
@@ -431,7 +431,7 @@ function updateBarChart() {
         yAxisSize = 60;
 
     selectedSeries = selectedSeries.cells;
-		console.log(selectedSeries);
+		//console.log(selectedSeries);
     var margin = {top: 40, right: 30, bottom: 40, left: 40};
     var width = svgBounds.width - margin.left - margin.right;
     var height = svgBounds.height - margin.top - margin.bottom;
@@ -490,7 +490,7 @@ function updateBarChart() {
     scales
         .enter()
         .append("text").text(function (d) {
-            console.log("datetime1", d.year);
+            //console.log("datetime1", d.year);
             return d.year;
         })
         .attr("x", function(d,i){
@@ -508,7 +508,7 @@ function updateBarChart() {
 
     scales
         .text(function (d) {
-            console.log("datetime2", d.year);
+            //console.log("datetime2", d.year);
             return d.year;
         })
         .attr("x", function(d,i){
@@ -528,21 +528,21 @@ function updateBarChart() {
         .exit()
         .remove();
     // //Bar chart of rectangle
-	console.log("height",height);
+	//console.log("height",height);
     rectangle
         .enter()
         .append("rect")
         .attr("x", function(d , i){
-            // console.log(xScale(i));
+            // //console.log(xScale(i));
             return xScale(d.year);
         })
         .attr("y", function(d , i){
-            console.log("y:",calcAqi(d.average_mean, selected_pollutant));
+            //console.log("y:",calcAqi(d.average_mean, selected_pollutant));
             return  yScale(calcAqi(d.average_mean, selected_pollutant));
         })
         .attr("width", xScale.rangeBand)
         .attr("height", function(d , i){
-			console.log("h:",height - yScale(calcAqi(d.average_mean, selected_pollutant)));
+			//console.log("h:",height - yScale(calcAqi(d.average_mean, selected_pollutant)));
             return  height - yScale(calcAqi(d.average_mean, selected_pollutant));
         })
         .attr("fill", function(d , i){
@@ -555,17 +555,17 @@ function updateBarChart() {
 
     rectangle
         .attr("x", function(d , i){
-            // console.log(xScale(i));
+            // //console.log(xScale(i));
             return xScale(d.year);
         })
         .attr("y", function(d , i){
-            // console.log(d.attendance);
-			console.log("y",calcAqi(d.average_mean, selected_pollutant));
+            // //console.log(d.attendance);
+			//console.log("y",calcAqi(d.average_mean, selected_pollutant));
             return  yScale(calcAqi(d.average_mean, selected_pollutant));
         })
         .attr("width", xScale.rangeBand)
         .attr("height", function(d , i){
-			console.log("h",height - yScale(calcAqi(d.average_mean, selected_pollutant)));
+			//console.log("h",height - yScale(calcAqi(d.average_mean, selected_pollutant)));
             return  height - yScale(calcAqi(d.average_mean, selected_pollutant));
         })
         .attr("fill", function(d , i){
@@ -613,7 +613,7 @@ function updateForceDirectedGraph() {
         // first computation
         .start();
 
-    console.log(force.links());
+    //console.log(force.links());
 
     var svg = d3.select("#graph");
 
@@ -636,7 +636,7 @@ function updateForceDirectedGraph() {
         .append("path")
         .attr("class", "node")
         .attr("d" , d3.svg.symbol().type(function(d){
-        console.log("data_type == ", d.data_type);
+        //console.log("data_type == ", d.data_type);
         if(d.data_type == "Game")
         {
             return d3.svg.symbolTypes[0];
@@ -676,7 +676,7 @@ function updateForceDirectedGraph() {
 //http://stackoverflow.com/questions/23224285/change-the-size-of-a-symbol-with-a-transition-in-d3-js  
 
     vertices.attr("d" , d3.svg.symbol().type(function(d){
-        console.log("data_type == ", d.data_type);
+        //console.log("data_type == ", d.data_type);
         if(d.data_type == "Game")
         {
             return d3.svg.symbolTypes[0];
@@ -1036,7 +1036,7 @@ d3.json("data/station.json", function (error, loadedData) {
 
     // Draw everything for the first time
     updateForceDirectedGraph();*/
-	console.log("came here");
+	//console.log("came here");
 	updateGoogleMap();
 	updateBarChart();
 
@@ -1053,12 +1053,12 @@ var map = new google.maps.Map(d3.select("#map").node(), {
 });
 ///cube/airquality/aggregate?drilldown=city|parameter&cut=parameter:Ozone
 function updateGoogleMap() {
-    console.log("In google map:", city, selected_pollutant);
+    //console.log("In google map:", city, selected_pollutant);
 	var url1 = "http://cube.geekological.com/cube/airquality/aggregate?drilldown=city";
-	console.log("se out:",url1);
+	//console.log("se out:",url1);
 	if(selected_pollutant !== "")
 	{
-		console.log("se:",url1);
+		//console.log("se:",url1);
 		url1 += "|parameter_code&cut=";
 		url1 += "parameter_code:" + encodeURIComponent(selected_pollutant);
 	}
@@ -1066,15 +1066,15 @@ function updateGoogleMap() {
 	{
 		url1 += "|parameter_code&cut=parameter_code:44201";
 	}
-	console.log(url1);
-	alert("google",url1);
+	////console.log(url1);
+	//alert("google",url1);
 	d3.json(url1, function(error, data) {
 		if (error) throw error;
 //d3.json("http://cube.geekological.com/" + "cube/airquality/aggregate?drilldown=city|&cut=parameter:Ozone", function(error, data) {
 // Load the station data. When the data comes back, create an overlay.
 //d3.json("data/aggregate.json", function(data) {
-		alert("google");
-	console.log("map:",data);
+		//alert("google");
+	////console.log("map:",data);
     var overlay = new google.maps.OverlayView();
 
     // Add the container when the overlay  is added to the map.
@@ -1090,14 +1090,14 @@ function updateGoogleMap() {
                 .range(colorbrewer.BuPu[9]);
         var layer = d3.select(this.getPanes().overlayMouseTarget).append("div")
             .attr("class", "stations");
-        console.log(data.cells);
+        //console.log(data.cells);
         // Draw each marker as a separate SVG element.
         // We could use a single SVG, but what size would it have?
         overlay.draw = function() {
             var projection = this.getProjection(),
                 padding = 20;
             if(marker !== 0) {
-                console.log("not first time");
+                //console.log("not first time");
                 marker.remove();
             }
             marker = layer.selectAll("svg").data(data.cells);
