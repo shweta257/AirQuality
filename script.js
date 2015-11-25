@@ -8,7 +8,7 @@ var data,
     colorScale,
 	city
 
-		selected_pollutant = "44201";
+		selected_pollutant = "81102-86502";
 		city = ""
 
 
@@ -1064,9 +1064,9 @@ function updateGoogleMap() {
 	}
 	else
 	{
-		url1 += "|parameter_code&cut=parameter_code:44201";
+		url1 += "|parameter_code&cut=parameter_code:81102-86502";
 	}
-	////console.log(url1);
+	console.log(url1);
 	//alert("google",url1);
 	d3.json(url1, function(error, data) {
 		if (error) throw error;

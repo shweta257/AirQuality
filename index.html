@@ -95,7 +95,7 @@
             margin: 10px;
         }
         #pollutant-selector{clear:both;margin-top:10px;text-align:center;}
-        #pollutant-selector .pollutant{width:140px;display:inline-block;text-align:center;padding:12px 0;line-height:12px;border-top:5px solid;border-bottom:3px solid;cursor:pointer;opacity:.25;-webkit-transition:opacity .25s;-moz-transition:opacity .25s;-ms-transition:opacity .25s;-o-transition:opacity .25s;transition:opacity .25s;color:#525252;}
+        #pollutant-selector .pollutant{ z-index:50px; width:140px;display:inline-block;text-align:center;padding:12px 0;line-height:12px;border-top:5px solid;border-bottom:3px solid;cursor:pointer;opacity:.25;-webkit-transition:opacity .25s;-moz-transition:opacity .25s;-ms-transition:opacity .25s;-o-transition:opacity .25s;transition:opacity .25s;color:#525252;}
          #pollutant-selector .pollutant:hover{opacity:.5}
 #pollutant-selector .pollutant.active{opacity:1}
 #pollutant-selector .pollutant sub{vertical-align:sub;font-size:.75em;display:inline-block;margin-bottom:-1em}
@@ -111,8 +111,8 @@
 
 <body>
     <body>
-            <span class="papyrus" style="    position: absolute;    top: 29px;    z-index: 11;    left: 15px;"> Air Quality of Utah (data from <a href="https://opendata.utah.gov/browse?q=Annual+All+Air+Quality" target="_blank">US EPA</a>)  </span>
-         <div style="position:absolute;  z-index:-2; top:0px;  width:100%;margin:0 auto;  clear: both;
+            <span class="papyrus" style="    position: absolute;    top: 29px;    z-index: 11; width:40%;    left: 15px;"> Air Quality of Utah (data from <a href="https://opendata.utah.gov/browse?q=Annual+All+Air+Quality" target="_blank">US EPA</a>)  </span>
+         <div style="position:absolute;  z-index:5; top:0px;  left:40%;width:60%;margin:0 auto;  clear: both;
     text-align: center; ">
         <div id="pollutant-selector">
                 <div id="p_o3" class="pollutant o3 " style="border-color: rgb(0, 132, 253);">O<sub>3</sub></div>
