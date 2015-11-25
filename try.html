@@ -92,7 +92,7 @@ d3.json("output.json", function(data) {
 			.attr("y", j*20+25)
 			.attr("x",function(d, i) { return xScale(d[0])-5; })
 			.attr("class","value")
-			.text(function(d){ return d[1]; })
+			.text(function(d){ return parseFloat(d[1]).toFixed(2); })
 			.style("fill", function(d) { return c(j); })
 			.style("display","none");
 
