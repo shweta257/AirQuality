@@ -1019,7 +1019,7 @@ d3.json("data/Utah.geo.json", function (error, usStateData) {
     drawStates(usStateData);
 });
 */
-d3.json("data/station.json", function (error, loadedData) {
+d3.json("Data/station.json", function (error, loadedData) {
     // if (error) throw error;
 
     // Store the data in a global variable for all functions to access
